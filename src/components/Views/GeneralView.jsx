@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./View.css";
 
 function Wievs({ score, bestScore }) {
   const [cards, setCards] = useState([]);
@@ -27,29 +28,27 @@ function Wievs({ score, bestScore }) {
 
   return (
     <div>
-      <div>
-        <p>
-          Click on each image once, but do not click on an image more than once!
-        </p>
+      <div className="top-head">
+        <div>
+          <p>
+            Click on each image once, but do not click on an image more than
+            once!
+          </p>
+        </div>
+        <div>
+          <p>Score: {score}</p>
+          <p>Best Score: {bestScore}</p>
+        </div>
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="grid-container">
         {cards.map((card) => (
           <img
+            className="images"
             key={card.id}
             src={card.image}
             alt={card.title}
-            style={{
-              width: "100px",
-              height: "100px",
-              margin: "10px",
-              cursor: "pointer",
-            }}
           />
         ))}
-      </div>
-      <div>
-        <p>Score: {score}</p>
-        <p>Best Score: {bestScore}</p>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Wievs from "./components/GeneralView";
+import Wievs from "./components/Views/GeneralView";
 
 function App() {
   return (
