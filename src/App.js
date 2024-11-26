@@ -1,11 +1,11 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import Wievs from "./components/Views/GeneralView";
+import Score from "./components/Scores/Score";
 
 function App() {
   return (
     <div>
-      <Wievs score={0} bestScore={0} />
+      <Score />
     </div>
   );
 }

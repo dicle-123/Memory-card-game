@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./View.css";
 
-function Wievs({ score, bestScore }) {
+function GeneralView({ score, bestScore, onCardClick, shuffleCards }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -9,12 +9,7 @@ function Wievs({ score, bestScore }) {
     const API_URL = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=12`;
 
     fetch(API_URL)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         const formattedData = data.data.map((gif) => ({
           id: gif.id,
@@ -26,15 +21,17 @@ function Wievs({ score, bestScore }) {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  const handleCardClick = (id) => {
+    onCardClick(id);
+    setCards(shuffleCards(cards));
+  };
+
   return (
     <div>
       <div className="top-head">
-        <div>
-          <p>
-            Click on each image once, but do not click on an image more than
-            once!
-          </p>
-        </div>
+        <p>
+          Click on each image once, but do not click on an image more than once!
+        </p>
         <div>
           <p>Score: {score}</p>
           <p>Best Score: {bestScore}</p>
@@ -47,6 +44,7 @@ function Wievs({ score, bestScore }) {
             key={card.id}
             src={card.image}
             alt={card.title}
+            onClick={() => handleCardClick(card.id)}
           />
         ))}
       </div>
@@ -54,4 +52,4 @@ function Wievs({ score, bestScore }) {
   );
 }
 
-export default Wievs;
+export default GeneralView;
